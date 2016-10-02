@@ -25,6 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('isUser', function ($user) {
+            return $user->authority == 'user';
+        });
+
+        Gate::define('isStreamer', function ($user) {
+            return $user->authority == 'streamer';
+        });
     }
 }

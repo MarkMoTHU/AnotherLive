@@ -14,3 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+//API
+Route::group(['prefix' => 'api', 'namespace' => 'Api'], function ($router) {
+    //用户API
+    Route::group(['prefix' => 'user'], function ($router) {
+        $router->post('/room/apply','UserInfoApiController@applyLiveRoom');
+        $router->get('/publish','UserInfoApiController@getPublishUrl');
+    });
+    //开放API
+    $router->get('/stream/play/{id}','StreamApiController@getPlayUrl');
+});
